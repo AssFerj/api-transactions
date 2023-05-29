@@ -1,9 +1,14 @@
 import { v4 as createUuid } from "uuid";
 
+enum Type {
+    debit = "Débito",
+    credit = "Crédito"
+}
+
 export class Transaction {
     private _id: string;
 
-    constructor(private _title: string, private _value: number, private _type: string){
+    constructor(private _title: string, private _value: number, private _type: Type){
         this._id = createUuid();
     }
 
@@ -19,13 +24,12 @@ export class Transaction {
         return this._value;
     }
 
-    public get type(): string {
+    public get type(): Type {
         return this._type;
     }
 
-    public toJson() {
+    public toJsonT() {
         return {
-            id: this._id,
             title: this._title,
             value: this._value,
             type: this._type
@@ -40,7 +44,7 @@ export class Transaction {
         this._value = newValue;
     }
 
-    public set type(newType: string) {
+    public set type(newType: Type) {
         this._type = newType;
     }
 }

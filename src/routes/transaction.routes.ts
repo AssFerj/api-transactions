@@ -8,6 +8,7 @@ export const transactionRoutes = () => {
 
     app.post('/', new TransactionController().create);
     app.get('/', new TransactionController().list);
+    app.get('/:transactionId', new TransactionController().getTransaction);
 
     return app;
 }

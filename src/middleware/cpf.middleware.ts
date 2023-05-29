@@ -1,26 +1,29 @@
 import { NextFunction, Request, Response } from "express";
-import { cpf } from 'cpf-cnpj-validator';
+import { cpf as validaCpf } from "cpf-cnpj-validator";
+import { users } from "../data/dataUsers";
 import { apiResponse } from "../util/api.response.adapter";
 
-export class CpfMiddleware {
-    public static validateCpf(req: Request, res: Response, next: NextFunction) {
-        try {
-            const { cpf } = req.body;
+export const cpfCheck = (req: Request, res: Response, next: NextFunction) => {
+  const { cpf } = req.body;
 
-            if (!cpf) {
-                return apiResponse.notFound(res, 'CPF');
-            }
+  if (!cpf) {
+    return apiResponse.notFound(res, "CPF");
+  }
 
-            const isValid = cpf.isValid(
-                cpf.toString().padStart(11, "0")
-            );
-            if (!isValid) {
-                return apiResponse.invalidField(res, "CPF");
-            }
+  const cpfValido = validaCpf.isValid(cpf);
+  if (!cpfValido) {
+    return res.status(403).send({
+      ok: false,
+      message: "Cpf invalido",
+    });
+  }
 
-            next();
-        } catch (error: any) {
-            return apiResponse.serverError(res, error);
-        }
-    }
-}
+  const existeCpf = users.some((item) => item.cpf === cpf);
+  if (existeCpf) {
+    return res.status(403).send({
+      ok: false,
+      message: "Cpf já cadastrado",
+    });
+  }
+  next();
+};
