@@ -9,22 +9,6 @@ export class UserController {
         try {
             const { name, cpf, email, age } = req.body;
 
-            if (!name) {
-                return apiResponse.notProvided(res, 'Users');
-            }
-
-            if (!cpf) {
-                return apiResponse.notProvided(res, 'CPF');
-            }
-
-            if (!email) {
-                return apiResponse.notProvided(res, 'Email');
-            }
-
-            if (!age) {
-                return apiResponse.notProvided(res, 'Idade');
-            }
-
             const user = new User( name, cpf, email, age);
 
             const findUserByCpf = users.find(user => user.cpf === cpf);
@@ -48,22 +32,22 @@ export class UserController {
     // READ
     public list (req: Request, res: Response) {
         try{
+            const { name, cpf, email } = req.query;
+
             if(!users){
                 return apiResponse.notFound(res, 'Users');
             }
-
-            const { name, cpf, email } = req.query;
 
             let result = users;
 
             if(name){
                 result = users.filter(user => user.name === name);
             }
-
+        
             if(cpf){
                 result = users.filter(user => user.cpf === cpf);
             }
-
+        
             if(email){
                 result = users.filter(user => user.email === email);
             }

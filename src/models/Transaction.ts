@@ -1,8 +1,8 @@
 import { v4 as createUuid } from "uuid";
 
-enum Type {
-    debit = "Débito",
-    credit = "Crédito"
+export enum Type {
+    income = "Entrada",
+    outcome = "Saída"
 }
 
 export class Transaction {

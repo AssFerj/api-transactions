@@ -41,7 +41,6 @@ export class User{
             cpf: this._cpf,
             email: this._email,
             age: this._age,
-            transaction: this._transactions
         };
     }
 
@@ -60,10 +59,6 @@ export class User{
     public set age(newAge: number) {
         this._age = newAge;
     }
-
-    // public set transaction(newTransaction: Transaction[]) {
-    //     this._transactions = newTransaction;
-    // }
 
     public set addTransaction(newTransaction: Transaction) {
         this._transactions.push(newTransaction);

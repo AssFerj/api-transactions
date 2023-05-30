@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { apiResponse } from "../util/api.response.adapter";
-import { Transaction } from "../models/Transaction";
+import { Transaction, Type } from "../models/Transaction";
 import { users } from "../data/dataUsers";
 
 export class TransactionController {
@@ -10,18 +10,6 @@ export class TransactionController {
             const { userId } = req.params;
             const { title, value, type } = req.body;
 
-            if(!title) {
-                return apiResponse.notProvided(res, 'Título')
-            }
-
-            if(!value) {
-                return apiResponse.notProvided(res, 'Valor')
-            }
-
-            if(!type) {
-                return apiResponse.notProvided(res, 'Tipo')
-            }
-
             const user = users.find(user => user.id === userId);
             
             if(!user) {
@@ -29,6 +17,7 @@ export class TransactionController {
             }
 
             const transaction = new Transaction(title, value, type);
+
             user.transaction.push(transaction);
             
             return res.status(201).send({
@@ -43,9 +32,10 @@ export class TransactionController {
     //READ
     public list(req: Request, res: Response) {
         try {
-            const { id } = req.params;
+            const { userId } = req.params;
+            const { type } = req.query;
 
-            const user = users.find(user => user.id === id);
+            const user = users.find(user => user.id === userId);
 
             if(!user) {
                 return apiResponse.notFound(res, 'User');

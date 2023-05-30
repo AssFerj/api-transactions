@@ -1,10 +1,18 @@
 import { Response } from "express";
+import { Type } from "../models/Transaction";
 
 export class apiResponse {
     public static notFound(res: Response, entity: string){
         return res.status(404).send({
             ok: false,
             message:  `${entity} not found`,
+        });
+    }
+
+    public static typeNotAssigned(res: Response, entity: string){
+        return res.status(404).send({
+            ok: false,
+            message:  `${entity} not found, ${entity} only ${Type.income} or ${Type.outcome}`,
         });
     }
 

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { apiResponse } from "../util/api.response.adapter";
+import { users } from "../data/dataUsers";
 
 export const validateUser = (req: Request, res: Response, next: NextFunction) => {
   const { name, cpf, email, age } = req.body;
@@ -19,5 +20,6 @@ export const validateUser = (req: Request, res: Response, next: NextFunction) =>
   if (!age) {
     return apiResponse.notProvided(res, "Idade");
   }
+
   next();
 };
