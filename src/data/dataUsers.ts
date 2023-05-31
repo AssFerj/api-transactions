@@ -6,8 +6,8 @@ export const users = [
     new User('User2', '58315147064', 'user2@mail.com', 28),
 ];
 
-users[0].transaction.push(new Transaction('Salário', 1500, 'Depósito'));
-users[0].transaction.push(new Transaction('Bônus', 500, 'Depósito'));
-users[0].transaction.push(new Transaction('Aluguel', 500, 'Retirada'));
-users[1].transaction.push(new Transaction('Salário', 1340, 'Depósito'));
-users[1].transaction.push(new Transaction('Aluguel', 480, 'Retirada'));
+users[0].transaction.push(new Transaction('Salário', 1500, 'Entrada'));
+users[0].transaction.push(new Transaction('Bônus', 500, 'Entrada'));
+users[0].transaction.push(new Transaction('Aluguel', 500, 'Saída'));
+users[1].transaction.push(new Transaction('Salário', 1340, 'Entrada'));
+users[1].transaction.push(new Transaction('Aluguel', 480, 'Saída'));
