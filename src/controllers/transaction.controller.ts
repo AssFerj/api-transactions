@@ -52,7 +52,7 @@ export class TransactionController {
                 return apiResponse.notFound(res, `Transaction of user ${user?.name}`);
             }
 
-            let transactionOfUser = user.transaction.map(transaction => transaction.toJsonT());
+            const transactionOfUser = user.transaction.map(transaction => transaction.toJsonT());
 
             let income = user.transaction
                 .filter(t => t.type === TypeTransaction.income)
